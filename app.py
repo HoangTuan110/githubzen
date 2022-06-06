@@ -3,11 +3,12 @@ from mako.lookup import TemplateLookup
 from httpx import get
 
 app = Flask(__name__)
+app.config["TITLE"] = "Inspirational Quotes From GitHub Zen"
 
 templates = TemplateLookup(directories=["./templates"], module_directory="/tmp/mako_modules")
 def serve_template(name, **kwargs):
     template = templates.get_template(name)
-    return template.render(**kwargs)
+    return template.render(**kwargs, title=app.config["TITLE"])
 
 @app.route('/')
 def index():

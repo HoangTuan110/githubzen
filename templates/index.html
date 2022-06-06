@@ -4,4 +4,10 @@
 
 <%block name="content">
   <h3 class="quote">${quote}</h3>
+  % if messages:
+  <ul>
+    % for msg in messages:
+      <li>${msg}</li>
+    % endfor
+  </ul>
 </%block>

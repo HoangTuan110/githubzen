@@ -10,12 +10,12 @@ def serve_template(name, **kwargs):
     template.render(**kwargs)
 
 @app.route('/')
-def hello_world():
+def index():
     quote = get("https://api.github.com/zen")
     if quote.is_error:
         flash(f"Error {quote.status_code}")
-    else:
-        return serve_template("index.html", quote=quote, messages=get_flashed_messages())
+        quote = ""
+    return serve_template("index.html", quote=quote, messages=get_flashed_messages())
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

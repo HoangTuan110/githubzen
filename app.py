@@ -7,7 +7,7 @@ app = Flask(__name__)
 templates = TemplateLookup(directories=["./templates"], module_directory="/tmp/mako_modules")
 def serve_template(name, **kwargs):
     template = templates.get_template(name)
-    template.render(**kwargs)
+    return template.render(**kwargs)
 
 @app.route('/')
 def index():
@@ -15,6 +15,8 @@ def index():
     if quote.is_error:
         flash(f"Error {quote.status_code}")
         quote = ""
+    else:
+        quote = quote.text
     return serve_template("index.html", quote=quote, messages=get_flashed_messages())
 
 if __name__ == '__main__':
